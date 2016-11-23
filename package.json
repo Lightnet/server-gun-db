@@ -7,6 +7,11 @@
     "test": "tests"
   },
   "scripts": {
+	"wbabel": "babel src_browser/ --watch --out-dir public/js/",
+    "babel": "babel --presets es2015 src_browser/index.js -o public/js/index.js",
+    "dev": "nodemon --exec babel-node src/index.js",
+    "prestart": "babel src --out-dir dist",
+    "start": "node dist/index.js",
     "test": "node src/index.js"
   },
   "repository": {
@@ -30,5 +35,10 @@
     "gun-level": "^4.0.1",
     "leveldown": "^1.5.0",
     "levelup": "^1.3.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0",
+    "nodemon": "^1.11.0"
   }
 }

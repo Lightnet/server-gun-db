@@ -1,0 +1,34 @@
+{
+  "name": "server-gun-db",
+  "version": "1.0.0",
+  "description": "server gun database synchronization",
+  "main": "server-gun.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lightnet/server-gun-db.git"
+  },
+  "keywords": [
+    "server",
+    "gun",
+    "database"
+  ],
+  "author": "Lightnet",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lightnet/server-gun-db/issues"
+  },
+  "homepage": "https://github.com/Lightnet/server-gun-db#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "gun": "^0.3.9991",
+    "gun-level": "^4.0.1",
+    "leveldown": "^1.5.0",
+    "levelup": "^1.3.3"
+  }
+}

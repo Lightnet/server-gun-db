@@ -1,7 +1,3 @@
-//===============================================
-
-//https://github.com/amark/gun/wiki/snippets-(v0.3.x)#savinggetting-images-in-gun
-
 Gun.chain.image = function (img) {
   if (!img.src) {
     return this.val(function (src) {
@@ -46,37 +42,35 @@ Gun.chain.value = function(cb, opt){
   }, opt);
 }
 
-// connecting to any peers array
-var peers = [
-'http://localhost:8080/gun'
-];
-var gun = Gun(peers);
 
-// Create an interface for the `greetings`
-// key, storing it in a variable.
-var greetings = gun.get('greetings');
+var peers = ['http://localhost:8080/gun'];
+var gun = Gun(peers).get('thoughts');
+$('form').on('submit', function(event){
+	event.preventDefault();
+	var msg = {};
+	msg.txt = $('input').val();
+	gun.set(msg);
+	$('input').val("");
+});
 
-// Update the value on `greetings`.
-//greetings.put({ hello: 'worlds' });
-//console.log(greetings.get('greetings'));
-//console.log(greetings.get('hello'));
-//console.log(greetings.get('greetings').val());
-//console.log(greetings.path('hello'));
-//console.log(greetings);
 
-gun.get('greetings').each(function (example) {
+gun.get('thoughts').each(function (example) {
   console.log(example)
 })
 
-// Read the value and listen for
-// any changes.
 /*
-greetings.on(function (data) {
-	console.log('Update!', data)
+gun.on().map(function(thought, id){
+	var li = $('#' + id).get(0) || $('<li>').attr('id', id).appendTo('ul');
+	//console.log(id);
+	//console.log(thought);
+	if(thought){
+		$(li).text(thought['txt']);
+	} else {
+		//console.log(thought);
+		$(li).hide();
+	}
 });
 */
-
-// Print the value!
-greetings.live(function (update) {
-    //console.log('Update:', update)
-})
+$('body').on('dblclick', 'li', function(event){
+	gun.path(this.id).put(null);
+});

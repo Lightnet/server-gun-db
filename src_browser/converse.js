@@ -1,7 +1,3 @@
-//===============================================
-
-//https://github.com/amark/gun/wiki/snippets-(v0.3.x)#savinggetting-images-in-gun
-
 Gun.chain.image = function (img) {
   if (!img.src) {
     return this.val(function (src) {
@@ -46,37 +42,27 @@ Gun.chain.value = function(cb, opt){
   }, opt);
 }
 
-// connecting to any peers array
-var peers = [
-'http://localhost:8080/gun'
-];
-var gun = Gun(peers);
-
-// Create an interface for the `greetings`
-// key, storing it in a variable.
-var greetings = gun.get('greetings');
-
-// Update the value on `greetings`.
-//greetings.put({ hello: 'worlds' });
-//console.log(greetings.get('greetings'));
-//console.log(greetings.get('hello'));
-//console.log(greetings.get('greetings').val());
-//console.log(greetings.path('hello'));
-//console.log(greetings);
-
-gun.get('greetings').each(function (example) {
-  console.log(example)
-})
-
-// Read the value and listen for
-// any changes.
-/*
-greetings.on(function (data) {
-	console.log('Update!', data)
+var peers = ['http://localhost:8080/gun'];
+var gun = Gun(peers).get('tutorial/chat/app');
+$('form').on('submit', function(event) {
+	event.preventDefault();
+	var message = {};
+	message.who = $('form').find('input').val();
+	message.what = $('form').find('textarea').val();
+	message.when = new Date().getTime();
+	gun.set(message);
+	$('form').find('textarea').val("");
 });
-*/
-
-// Print the value!
-greetings.live(function (update) {
-    //console.log('Update:', update)
-})
+gun.map().val(function(message, id) {
+	console.log(message);
+	if (!message) {
+		return;
+	}
+	var $li = $(
+		$('#' + id).get(0) ||
+		$('.model').find('.message').clone(true).attr('id', id).appendTo('ul')
+	);
+	$li.find('.who').text(message.who);
+	$li.find('.what').text(message.what);
+	$li.find('.when').text(message.when);
+});

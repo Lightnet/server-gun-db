@@ -5,31 +5,10 @@
 			<form>
 				<input><button>Add</button>
 			</form>
-			
+
 			<ul></ul>
 		<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-		<script src="http://localhost:8080/gun.js"></script>
-		<script>
-			var peers = ['http://localhost:8080/gun'];
-				var gun = Gun(peers).get('thoughts');
-			$('form').on('submit', function(event){
-					event.preventDefault();
-					var msg = {};
-					msg.txt = $('input').val();
-					gun.set(msg);
-					$('input').val("");
-				});
-				gun.on().map(function(thought, id){
-					var li = $('#' + id).get(0) || $('<li>').attr('id', id).appendTo('ul');
-					if(thought){
-						$(li).text(thought['txt']);
-					} else {
-						$(li).hide();
-					}
-				});
-				$('body').on('dblclick', 'li', function(event){
-					gun.path(this.id).put(null);
-				});
-		</script>
+		<script src="/gun.js"></script>
+	    <script src="/js/thought.js"> </script>
 	</body>
 </html>
